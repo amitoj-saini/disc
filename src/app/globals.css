@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+html, body, .main {
     height: 100%;
     width: 100%;
     padding: 0;
@@ -10,20 +10,42 @@ html, body {
 }
 
 :root {
-    --bg: rgb(15, 19, 37);
-    --header-color: rgb(255, 255, 255);
-    --text-color: rgb(119, 125, 149);
-    --secondary: rgb(67, 145, 222);
-    --light-gray: rgb(24, 28, 43);
+    --bg: rgb(22, 35, 50);
+    --color: rgb(28, 43, 59);
+    --text-color: rgb(230, 230, 230);
+    --secondary: rgb(87, 170, 10);
+    --blurple: #5865F2;
+    --gradient-main: linear-gradient(to bottom, var(--secondary), var(--text-color));
+    --gradient-second: linear-gradient(to right, var(--secondary), var(--blurple));
 }
 
-
 body {
-    background: var(--bg);
+    background-color: var(--bg);
     color: var(--text-color);
 }
 
-.grid-border {
-    border-color: var(--light-gray);
-    border-style: dotted;
+.text-gradient {
+    background-clip: text;
+    background-color: white;
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+}
+
+button {
+    border: solid 0.5px var(--secondary);
+    padding: 5px 15px;
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--secondary);
+    border-radius: 2.5px;
+    margin: 0px 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: var(--secondary);
+    color: var(--text-color)
 }
