@@ -10,18 +10,13 @@ html, body, .main {
 }
 
 :root {
-    --bg: rgb(22, 35, 50);
-    --color: rgb(28, 43, 59);
-    --text-color: rgb(230, 230, 230);
-    --secondary: rgb(87, 170, 10);
-    --blurple: #5865F2;
-    --gradient-main: linear-gradient(to bottom, var(--secondary), var(--text-color));
-    --gradient-second: linear-gradient(to right, var(--secondary), var(--blurple));
-}
+    --main: rgb(20, 20, 29);
+    --main-secondary: rgb(32, 32, 47);
+    --secondary: rgb(90, 101, 234);
+    --light: rgb(230, 230, 230);
+    --gray: rgb(150, 150, 150);
 
-body {
-    background-color: var(--bg);
-    color: var(--text-color);
+    --main-gradient: linear-gradient(to right, var(--secondary), rgb(153, 34, 58));
 }
 
 .text-gradient {
@@ -34,6 +29,10 @@ body {
     -moz-text-fill-color: transparent;
 }
 
+body {
+    font-family: sans-serif;
+}
+
 button {
     border: solid 0.5px var(--secondary);
     padding: 5px 15px;
@@ -43,9 +42,35 @@ button {
     border-radius: 2.5px;
     margin: 0px 10px;
     transition: 0.3s;
+    display: block;
 }
 
 button:hover {
     background: var(--secondary);
     color: var(--text-color)
+}
+
+label {
+    margin-top: 30px;
+    font-weight: 100;
+    font-size: 11px;
+    display: block;
+    color: var(--gray);
+}
+
+input {
+    border: solid 0.5px var(--main-secondary);
+    background-color: var(--main-secondary);
+    max-width: 300px;
+    width: 400px;
+    border-radius: 3.5px;
+    padding: 6px 12px;
+    font-size: 12px;
+    margin-top: 2.5px;
+    outline: none;
+    transition: 0.2s;
+}
+
+input:focus {
+    border: solid 0.5px var(--secondary);
 }

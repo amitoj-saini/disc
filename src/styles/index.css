@@ -1,3 +1,4 @@
-.bottom-container {
-    height: calc(100% - 64px);
+body {
+    background: linear-gradient(to right, var(--main), rgb(15, 17, 34));
+    color: var(--light);
 }
