@@ -11,18 +11,19 @@ export default function SignUp() {
                         <img src="/disc.png" alt="logo" width={40} />
                         <h1 className="ml-5 text-xl font-light">Welcome to Disc</h1>    
                     </div>
-                    <form>
+                    <form action="/api/signup" method="post">
                         <div className="mt-10">
                             <label>Name</label>
-                            <input id="name" placeholder="Enter Name" required></input>
+                            <input name="name" id="name" placeholder="Enter Name" required></input>
+                            <label>Email</label>
+                            <input name="email" id="email" placeholder="Enter Email" required></input>
                             <label>Username</label>
-                            <input id="username" placeholder="Enter Username" required></input>
+                            <input name="username" id="username" placeholder="Enter Username" required></input>
                             <label>Password</label>
-                            <input id="password" type="password" placeholder="Enter Password" required></input>
+                            <input name="password" id="password" type="password" placeholder="Enter Password" required></input>
                             <button className="ml-0 mt-8 w-full">Sign Up</button>
                         </div>
                     </form>
-                    
                 </div>
             </div>
         </main>
