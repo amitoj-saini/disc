@@ -1,8 +1,9 @@
 import { FormEvent } from "react";
 
 
-export default function formDataRequest(url: string, method="POST") {
+export function formDataRequest(url: string, onstart: () => void, callback: (json: any) => void, method="POST") {
     return async function onSubmit(event: FormEvent<HTMLFormElement>) {
+        onstart();
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         let jsonData = {} as {[key: string]: any}
@@ -14,6 +15,6 @@ export default function formDataRequest(url: string, method="POST") {
             headers: {"Content-Type": "application/json"}
         });
     
-        return await response.json();
+        callback(await response.json());
     }
 }

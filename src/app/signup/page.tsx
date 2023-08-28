@@ -1,11 +1,19 @@
 "use client";
 
-import fetchDataRequest from "../components/functions";
+import { formDataRequest } from "../components/functions";
 import TopBar from "../components/TopBar";
+import Loader from "../components/Loader";
 import "../../styles/index.css";
+import { useState } from "react";
 
 export default function SignUp() {
-    
+    const [isLoading, setIsLoading] = useState(false);
+
+    const responseHandler = (res: any) => {
+        setIsLoading(false);
+        console.log(res)
+    }
+
     return (
         <main className="main">
             <TopBar></TopBar>
@@ -15,7 +23,7 @@ export default function SignUp() {
                         <img src="/disc.png" alt="logo" width={40} />
                         <h1 className="ml-5 text-xl font-light">Welcome to Disc</h1>    
                     </div>
-                    <form onSubmit={fetchDataRequest("/api/signup")}>
+                    <form onSubmit={formDataRequest("/api/signup", (() => setIsLoading(true)), responseHandler)}>
                         <div className="mt-10">
                             <label>Name</label>
                             <input name="name" id="name" placeholder="Enter Name" required></input>
@@ -25,7 +33,15 @@ export default function SignUp() {
                             <input name="username" id="username" placeholder="Enter Username" required></input>
                             <label>Password</label>
                             <input name="password" id="password" type="password" placeholder="Enter Password" required></input>
-                            <button className="ml-0 mt-8 w-full">Sign Up</button>
+                            <div className="flex mt-8">
+                                <div className="w-3/4">
+                                    <button className="m-0 w-full">Sign Up</button>
+                                </div>
+                                <div className="w-1/4 flex justify-center items-center">
+                                    {isLoading && <Loader />}
+                                </div>
+                            </div>
+                            
                         </div>
                     </form>
                 </div>
