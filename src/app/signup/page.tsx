@@ -1,7 +1,6 @@
 "use client";
 
 import { formDataRequest } from "../utils/functions";
-import ReCAPTCHA from "react-google-recaptcha";
 import TopBar from "../components/TopBar";
 import Loader from "../components/Loader";
 import "../../styles/index.css";
@@ -34,7 +33,6 @@ export default function SignUp() {
                             <input name="username" id="username" placeholder="Enter Username" required></input>
                             <label>Password</label>
                             <input name="password" id="password" type="password" placeholder="Enter Password" required></input>
-                            <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}/>
                             <div className="flex mt-8">
                                 <div className="w-3/4">
                                     <button className="m-0 w-full">Sign Up</button>
