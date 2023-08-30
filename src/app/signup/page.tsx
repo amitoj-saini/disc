@@ -8,10 +8,10 @@ import { useState } from "react";
 
 export default function SignUp() {
     const [isLoading, setIsLoading] = useState(false);
-
+    const [error, setError] = useState(false);
     const responseHandler = (res: any) => {
         setIsLoading(false);
-        console.log(res)
+        if (res.error) setError(res.error);
     }
 
     return (
@@ -33,7 +33,8 @@ export default function SignUp() {
                             <input name="username" id="username" placeholder="Enter Username" required></input>
                             <label>Password</label>
                             <input name="password" id="password" type="password" placeholder="Enter Password" required></input>
-                            <div className="flex mt-8">
+                            <span className={`sm-message block mt-5 ${error ? "error-text" : ""}`}>{error ? error : "We'll never share your email with anyone else."}</span>
+                            <div className="flex mt-5">
                                 <div className="w-3/4">
                                     <button className="m-0 w-full">Sign Up</button>
                                 </div>

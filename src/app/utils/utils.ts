@@ -1,9 +1,11 @@
+import bcrypt from "bcrypt";
+
 interface Fields {
     name: string;
     length: number;
 }
 
-export default async function validateRequestBody(req: Request, requiredFields: Fields[]) {
+export async function validateRequestBody(req: Request, requiredFields: Fields[]) {
     let data = await req.json();
 
     for (let i=0; i<requiredFields.length; i++) {
@@ -16,4 +18,12 @@ export default async function validateRequestBody(req: Request, requiredFields: 
     }
 
     return [data, null];
+}
+
+export const hashPassword = async (password: string) => {
+    return await bcrypt.hash(password, 10);
+}
+
+export const comparePasswords = async (password: string, hashedPassword:string) => {
+    return await bcrypt.compare(password, hashedPassword);
 }

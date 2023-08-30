@@ -17,9 +17,7 @@ export const config = {
     matcher: [ "/api/:path*" ]
 }
 
-let rateLimit: RateLimit = {
-
-}
+let rateLimit: RateLimit = {}
 
 export async function middleware(req: Request) {
     let path = new URL(req.url).pathname;

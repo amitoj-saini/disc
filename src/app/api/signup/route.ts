@@ -1,7 +1,9 @@
-import validateRequestBody from "@/app/utils/validation";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { validateRequestBody, hashPassword } from "@/app/utils/utils";
+import { PrismaClient } from "@prisma/client";
+import type { NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
+const prisma = new PrismaClient();
 
 export const dynamicParams = true;
 
@@ -16,5 +18,18 @@ const signupFields = [
 export async function POST(req: Request, res: NextApiResponse) {
     let [data, err] = await validateRequestBody(req, signupFields);
     if (err) return NextResponse.json({"error": err});
+    try {
+        const user = await prisma.user.create({
+            data: {
+                name: data["name"],
+                username: data["username"],
+                password: await hashPassword(data["password"]),
+                email: data["email"],
+                
+            }
+        });
+    } catch {return NextResponse.json({"error": "Unable to create user, username or email already exists"});}
+    
+    
     return NextResponse.json({"data": "hello world"})
 }
