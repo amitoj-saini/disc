@@ -1,11 +1,14 @@
+import { NextApiRequest } from "next/types";
 import bcrypt from "bcrypt";
+
+declare module 'next' {export interface NextApiRequest {json: () => Promise<any>;}}
 
 interface Fields {
     name: string;
     length: number;
 }
 
-export async function validateRequestBody(req: Request, requiredFields: Fields[]) {
+export async function validateRequestBody(req: NextApiRequest, requiredFields: Fields[]) {
     let data = await req.json();
 
     for (let i=0; i<requiredFields.length; i++) {

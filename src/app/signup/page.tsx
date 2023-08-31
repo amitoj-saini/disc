@@ -23,7 +23,7 @@ export default function SignUp() {
                         <img src="/disc.png" alt="logo" width={40} />
                         <h1 className="ml-5 text-xl font-light">Welcome to Disc</h1>    
                     </div>
-                    <form onSubmit={formDataRequest("/api/signup", (() => setIsLoading(true)), responseHandler)}>
+                    <form onSubmit={formDataRequest("/api/signup", (() => {setIsLoading(true); setError(false)}), responseHandler)}>
                         <div className="mt-10">
                             <label>Name</label>
                             <input name="name" id="name" placeholder="Enter Name" required></input>

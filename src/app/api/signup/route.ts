@@ -1,7 +1,10 @@
 import { validateRequestBody, hashPassword } from "@/app/utils/utils";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { withIronSessionApiRoute } from "iron-session/next";
+import { sessionOptions } from "@/app/utils/session";
 import { PrismaClient } from "@prisma/client";
-import type { NextApiResponse } from "next";
-import { NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
+import { User } from "../user/route";
 
 const prisma = new PrismaClient();
 
@@ -15,7 +18,8 @@ const signupFields = [
     {name: "password", length: 25}
 ]
 
-export async function POST(req: Request, res: NextApiResponse) {
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
+    
     let [data, err] = await validateRequestBody(req, signupFields);
     if (err) return NextResponse.json({"error": err});
     try {
@@ -28,7 +32,13 @@ export async function POST(req: Request, res: NextApiResponse) {
                 
             }
         });
-    } catch {return NextResponse.json({"error": "Unable to create user, username or email already exists"});}
+
+        req.session.user = { isLoggedIn: true, userid: user.id } as User
+        console.log(req.session.user)
+        await req.session.save()
+    } catch (err) {
+        console.log(err);
+        return NextResponse.json({"error": "Unable to create user, username or email already exists"});}
     
     
     return NextResponse.json({"data": "hello world"})
