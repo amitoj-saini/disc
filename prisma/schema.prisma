@@ -16,4 +16,11 @@ model User {
   password String
   name String
   email String @unique
+  sessions Session[]
+}
+
+model Session {
+  id String @id
+  user User? @relation(fields: [userId], references: [id])
+  userId Int?
 }

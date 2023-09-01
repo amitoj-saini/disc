@@ -1,17 +1,21 @@
 "use client";
 
 import { formDataRequest } from "../utils/functions";
+import { useRouter } from "next/navigation";
 import TopBar from "../components/TopBar";
 import Loader from "../components/Loader";
 import "../../styles/index.css";
 import { useState } from "react";
 
+
 export default function SignUp() {
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter()
     const [error, setError] = useState(false);
     const responseHandler = (res: any) => {
         setIsLoading(false);
         if (res.error) setError(res.error);
+        if (res.success) router.push("/");
     }
 
     return (

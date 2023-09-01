@@ -33,5 +33,5 @@ export async function middleware(req: Request) {
             }
             rateLimit[req.url].requests += 1;
         }
-    }   
+    }
 }

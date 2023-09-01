@@ -30,3 +30,7 @@ export const hashPassword = async (password: string) => {
 export const comparePasswords = async (password: string, hashedPassword:string) => {
     return await bcrypt.compare(password, hashedPassword);
 }
+
+export const genSession = (length=10) => 
+    [...Array(length)].map(() => (~~(Math.random() * 36)).toString(36)).join('');
+
