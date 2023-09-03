@@ -8,7 +8,7 @@ import "../../styles/index.css";
 import { useState } from "react";
 
 
-export default function SignUp() {
+export default async function SignUp() {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter()
     const [error, setError] = useState(false);

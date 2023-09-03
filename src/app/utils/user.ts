@@ -1,6 +1,6 @@
-import { PrismaClient } from "@prisma/client";
 import type { Session, User } from "@prisma/client";
 import { genSession, hashPassword } from "./utils";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -16,7 +16,6 @@ export const createUser = async (name: string, username: string, email: string, 
     
 }
 
-
 export const createSession = async (user: User) => {
     return await prisma.session.create({
         data: {
@@ -29,6 +28,7 @@ export const createSession = async (user: User) => {
 }
 
 export const findUser = async (sessionId: string) => {
+    
     const session = await prisma.session.findUnique({where: {id: sessionId}, include: {user: true}});
     if (session) return session?.user;
     return null

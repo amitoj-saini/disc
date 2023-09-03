@@ -1,6 +1,5 @@
 import { FormEvent } from "react";
 
-
 export function formDataRequest(url: string, onstart: () => void, callback: (json: any) => void, method="POST") {
     return async function onSubmit(event: FormEvent<HTMLFormElement>) {
         onstart();

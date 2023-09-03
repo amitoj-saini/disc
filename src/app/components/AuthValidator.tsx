@@ -1,24 +1,15 @@
-import type { InferGetServerSidePropsType, GetServerSideProps } from "next"
+import { redirect } from "next/navigation";
+import { findUser } from "../utils/user";
+import { cookies } from "next/headers";
 
-interface User {
-    id: number,
-    name: string,
-    username: string,
-}
-
-interface AuthValidatorProps {
-    requiredLoginStatus: "loggedin" | "notloggedin"
-    user?: User,
-    children: React.ReactNode
-}
-
-export default function AuthValidator({ requiredLoginStatus, user, children } : AuthValidatorProps) {
+export async function authValidator(requiredLoggedIn=true, redirectPath="") {
+    redirectPath = ((redirectPath != "") ? redirectPath : ((requiredLoggedIn) ? "/" : "/dashboard"))
+    let sessionId = cookies().get("session")
+    if (sessionId && sessionId.value) {
+        let user = await findUser(sessionId.value)
+        if (requiredLoggedIn && user) return user
+        if (!requiredLoggedIn && !user) return null;
+    }
     
-    return <>{children}</>
+    return redirectPath // :( cannot redirect in component so have to return to main
 }
-
-export const getServerSideProps: GetServerSideProps<{user?: User}> = async () => {
-    const res = await fetch("/api/user");
-    const user = await res.json();
-    return { props: { user } };
-  }

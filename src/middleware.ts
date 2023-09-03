@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server";
+import { NextApiRequest } from "next/types";
 
 type ProtectedAPIRoutes = {
     [route: string]: {methods: string[], allowedRequests: number, per: number}
@@ -14,12 +15,12 @@ const protectedAPIRoutes: ProtectedAPIRoutes = {
 }
 
 export const config = {
-    matcher: [ "/api/:path*" ]
+    matcher: [ "/:path*" ]
 }
 
 let rateLimit: RateLimit = {}
 
-export async function middleware(req: Request) {
+export async function middleware(req: NextRequest) {
     let path = new URL(req.url).pathname;
     if (path in protectedAPIRoutes) {
         let route = protectedAPIRoutes[path];
