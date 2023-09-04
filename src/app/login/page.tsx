@@ -25,14 +25,10 @@ export default function SignUp() {
                 <div>
                     <div className="flex items-center justify-center">
                         <img src="/disc.png" alt="logo" width={40} />
-                        <h1 className="ml-5 text-xl font-light">Welcome to Disc</h1>    
+                        <h1 className="ml-5 text-xl font-light">Welcome Back to Disc</h1>
                     </div>
-                    <form onSubmit={formDataRequest("/api/signup", (() => {setIsLoading(true); setError(false)}), responseHandler)}>
+                    <form onSubmit={formDataRequest("/api/login", (() => {setIsLoading(true); setError(false)}), responseHandler)}>
                         <div className="mt-10">
-                            <label>Name</label>
-                            <input name="name" id="name" placeholder="Enter Name" required></input>
-                            <label>Email</label>
-                            <input type="email" name="email" id="email" placeholder="Enter Email" required></input>
                             <label>Username</label>
                             <input name="username" id="username" placeholder="Enter Username" required></input>
                             <label>Password</label>

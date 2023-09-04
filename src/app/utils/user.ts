@@ -28,8 +28,9 @@ export const createSession = async (user: User) => {
 }
 
 export const findUser = async (sessionId: string) => {
-    
-    const session = await prisma.session.findUnique({where: {id: sessionId}, include: {user: true}});
-    if (session) return session?.user;
-    return null
+    return await prisma.session.findUnique({where: {id: sessionId}, include: {user: true}});
+}
+
+export const fetchUser = async (username: string) => {
+    return await prisma.user.findUnique({where: {username: username}});
 }

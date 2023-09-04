@@ -9,7 +9,7 @@ export async function authValidator(requiredLoggedIn=true, redirectPath="") {
         let user = await findUser(sessionId.value)
         if (requiredLoggedIn && user) return user
         if (!requiredLoggedIn && !user) return null;
-    }
+    } else return null;
     
     return redirectPath // :( cannot redirect in component so have to return to main
 }
