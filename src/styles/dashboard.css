@@ -1,0 +1,23 @@
+:root {
+    --bg: rgb(24, 24, 37);
+    --bg-secondary: rgb(33, 33, 52);
+    --border: rgb(50, 50, 77);
+    --secondary: rgb(73, 69, 245);
+    --color: rgb(255, 255, 255);
+    --gray: rgb(192, 192, 206);
+}
+
+body {
+    background-color: var(--main);
+    color: var(--color);
+}
+
+.side-bar {
+    background-color: var(--bg-secondary);
+    border-right: solid 1px var(--border);
+    width: 223px;
+}
+
+.logo-container {
+    background-color: var(--secondary);
+}

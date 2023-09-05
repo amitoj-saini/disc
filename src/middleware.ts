@@ -10,7 +10,8 @@ type RateLimit = {
 }
 
 const protectedAPIRoutes: ProtectedAPIRoutes = {
-    "/api/signup": {methods: ["POST"], allowedRequests: 25000, per: 2678400}
+    "/api/signup": {methods: ["POST"], allowedRequests: 5, per: 2678400},
+    "/api/login": {methods: ["POST"], allowedRequests: 20, per: 2678400}
     // set back to 5 when done testing
 }
 
