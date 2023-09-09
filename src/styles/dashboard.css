@@ -9,7 +9,7 @@
 }
 
 body {
-    background-color: var(--main);
+    background-color: var(--bg);
     color: var(--color);
 }
 
@@ -40,4 +40,19 @@ body {
     color: var(--gray);
     width: 10px;
     height: 10px;
+}
+
+.disc {
+    box-shadow: rgba(3, 3, 5, 0.2) 1px 1px 10px;
+    background-color: var(--bg-secondary);
+    border-radius: 5px;
+    min-width: 320px;
+    max-width: 600px;
+    transition: 0.2s;
+    cursor: pointer;
+    width: 100%;
+}
+
+.disc:hover {
+    background: var(--main);
 }

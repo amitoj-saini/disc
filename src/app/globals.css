@@ -50,6 +50,17 @@ button:hover {
     color: var(--text-color)
 }
 
+.opposite-button {
+    background: var(--secondary);
+    color: var(--text-color);
+}
+
+.opposite-button:hover {
+    border: solid 0.5px var(--secondary);
+    background: transparent;
+    color: var(--secondary);
+}
+
 label {
     margin-top: 30px;
     font-weight: 100;

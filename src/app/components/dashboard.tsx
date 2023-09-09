@@ -1,8 +1,9 @@
 "use client";
 
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ReactNode, useState } from "react";
+import { faDiscord } from "@fortawesome/free-brands-svg-icons";
+import { ReactNode, useLayoutEffect, useState } from "react";
 import "../../styles/dashboard.css";
 
 
@@ -11,13 +12,15 @@ import "../../styles/dashboard.css";
 export default function DashboardTemplate({children} : {children: ReactNode}) {
     const [shrinkMenu, shrinkMenuClicked] = useState(false);
     
-    if (typeof window !== "undefined") {
-        let shrinkMenuValue = localStorage.getItem("shrinkMenu") ? true : false;
-        console.log(shrinkMenu != shrinkMenuValue)
-        if (shrinkMenu != shrinkMenuValue) {
-            shrinkMenuClicked(shrinkMenuValue);
+    useLayoutEffect(() => {
+        if (typeof window !== "undefined") {
+            let shrinkMenuValue = localStorage.getItem("shrinkMenu") ? true : false;
+            console.log(shrinkMenu != shrinkMenuValue)
+            if (shrinkMenu != shrinkMenuValue) {
+                shrinkMenuClicked(shrinkMenuValue);
+            }
         }
-    }
+    }, []);
     
     const setShrinkMenu = () => {
         let shrinkMenuValue = shrinkMenu ? false : true;
@@ -42,7 +45,7 @@ export default function DashboardTemplate({children} : {children: ReactNode}) {
                 <div className="flex-grow">
                     
                 </div>
-                <div style={{borderTop: "solid 0.5px var(--border)"}} className="flex-none flex items-center h-16">
+                <div style={{borderTop: "solid 0.5px var(--border)"}} className="flex-none flex items-center h-16 shrink-center">
                     <button onClick={setShrinkMenu} className="p-0 w-6 h-6 flex items-center justify-center">
                         <FontAwesomeIcon className="w-3 h-2.5" style={{color: "var(--dark-gray)"}} icon={shrinkMenu ? faArrowRight : faArrowLeft}/>
                     </button>
@@ -59,6 +62,35 @@ export function DashboardTitle({title, description} : {title: string, descriptio
     return (
         <div className="px-2">
             <h1 className="font-bold text-3xl">{title}</h1>
+            <p style={{color: "var(--dark-gray);"}} className="text-xs mt-2">{description}</p>
+        </div>
+    )
+}
+
+export function Discs({discs}: {discs: { img: string; title: string; description: string }[]}) {
+    
+    return (
+        <div className="w-full place-items-center text-center mt-8 grid gap-8 xs: grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+            {discs.map((disc) => (
+                <div className="disc p-4">
+                    <div className="flex items-center">
+                        <div style={{backgroundColor: "var(--secondary)"}} className="flex justify-center items-center w-11 h-11 rounded-md">
+                            <FontAwesomeIcon className="w-6 h-6" icon={faDiscord}/>
+                        </div>
+                        <h1 className="ml-4 font-thin">{disc.title}</h1>
+                        <FontAwesomeIcon style={{color: "var(--dark-gray)"}} className="mb-auto ms-auto h-4 w-auto" icon={faEllipsis}/>
+                    </div>
+
+                    <div className="mt-4 ml-2 text-left">
+                        <p style={{color: "var(--dark-gray)"}} className="text-sm font-thin">{disc.description}</p>
+                    </div>
+
+                    <div className="mt-4 ml-2 flex">
+                        <button className="ml-0">Explore Disc</button>
+                        <button className="opposite-button">Copy Disc</button>
+                    </div>
+                </div> 
+            ))}
         </div>
     )
 }
