@@ -5,16 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc",
+    "build": "concurrently \"tailwindcss -i src/static/css/tailwind/input.css -o src/static/css/tailwind/output.css\" \"npx tsc\"",
     "start": "node dist/index.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
+    "dev": "concurrently \"tailwindcss -i src/static/css/tailwind/input.css -o src/static/css/tailwind/output.css --watch\" \"npx tsc --watch\" \"nodemon -q dist/index.js\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.17",
     "concurrently": "^8.2.1",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "tailwindcss": "^3.3.3"
   },
   "dependencies": {
     "dotenv": "^16.3.1",

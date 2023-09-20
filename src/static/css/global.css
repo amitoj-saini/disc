@@ -1,0 +1,14 @@
+:root {
+    --bg: rgb(0, 0, 0);
+    --color: rgb(255, 255, 255);
+}
+
+body {
+    background: var(--bg);
+    color: var(--color);
+}
+
+html, body, .main {
+    height: 100%;
+    width: 100%;
+}
