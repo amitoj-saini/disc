@@ -4,6 +4,18 @@ block head
     title Disc the Bot Creator
 
 block body 
-    div.main.flex
-        include topbar.pug
-        
+    div.main.flex.flex-col
+        div.top-bar.w-full.h-12.border-b.border-color.px-4.flex.items-center
+            img.h-5(src="/public/images/logo.png")
+
+        // TODO: Compelte landing page after finished!
+        div.grow
+            form(method="POST", action="/login")
+                input(placeholder="Username" name="username")
+                input(placeholder="Password" name="password")
+                button Login
+            form(method="POST", action="/signup")
+                input(placeholder="Email" name="email") 
+                input(placeholder="Username" name="username")
+                input(placeholder="Password" name="password")
+                button Signup

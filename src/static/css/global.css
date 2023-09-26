@@ -1,6 +1,7 @@
 :root {
-    --bg: rgb(0, 0, 0);
+    --bg: rgb(33, 33, 33);
     --color: rgb(255, 255, 255);
+    --border: rgb(48, 48, 48);
 }
 
 body {
@@ -11,4 +12,8 @@ body {
 html, body, .main {
     height: 100%;
     width: 100%;
+}
+
+.border-color {
+    border-color: var(--border);
 }
