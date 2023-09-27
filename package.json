@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "concurrently \"tailwindcss -i src/static/css/tailwind/input.css -o src/static/css/tailwind/output.css\" \"npx tsc\"",
-    "start": "node dist/index.js",
-    "dev": "concurrently \"tailwindcss -i src/static/css/tailwind/input.css -o src/static/css/tailwind/output.css --watch\" \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
+    "start": "node dist/src/index.js",
+    "dev": "concurrently \"tailwindcss -i src/static/css/tailwind/input.css -o src/static/css/tailwind/output.css --watch\" \"npx tsc --watch\" \"nodemon -q dist/src/index.js\"",
     "generate": "drizzle-kit generate:sqlite",
     "push": "drizzle-kit push:sqlite"
   },
@@ -24,7 +24,9 @@
   "dependencies": {
     "@libsql/client": "^0.3.5",
     "@types/bcrypt": "^5.0.0",
+    "@types/cookie-parser": "^1.4.4",
     "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.28.6",
     "express": "^4.18.2",

@@ -9,6 +9,18 @@ export const users = sqliteTable("users", {
     isVerified: integer("verified"),
 });
 
-/*export const createUser = (data) => {
-    db.insert(users).values(data).returning().get()
-}*/
+export const sessions = sqliteTable("sessions", {
+    id: integer("id").primaryKey(),
+    userId: integer("user_id").references(() => users.id)
+})
+
+
+
+export const createUser = async (email: string, username: string, passwword: string, isverified: number) => {
+    return await db.insert(users).values({
+        email: email,
+        username: username,
+        password: passwword,
+        isVerified: isverified
+    }).returning().get()
+}

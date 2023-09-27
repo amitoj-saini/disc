@@ -1,6 +1,7 @@
 import { AuthReq, allowUsers, userValidationMiddleware } from "./middleware/authValidator";
 import express, { Response } from "express";
 import { signUp } from "./controllers/user";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import path from "path";
 
@@ -14,6 +15,7 @@ app.set("view engine", "pug");
 app.set("views", path.join("src", "views"));
 app.use(userValidationMiddleware)
 app.use(express.urlencoded({extended: true}));
+app.use(cookieParser());
 
 // loggedout routes
 app.get("/", allowUsers((req: AuthReq, res: Response) => res.render("loggedout/index.pug"), false))
