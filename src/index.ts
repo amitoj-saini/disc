@@ -13,12 +13,14 @@ const port = process.env.PORT;
 app.use("/public", express.static("src/static"));
 app.set("view engine", "pug");
 app.set("views", path.join("src", "views"));
+app.use(cookieParser());
 app.use(userValidationMiddleware)
 app.use(express.urlencoded({extended: true}));
-app.use(cookieParser());
+
 
 // loggedout routes
 app.get("/", allowUsers((req: AuthReq, res: Response) => res.render("loggedout/index.pug"), false))
+app.get("/", allowUsers((req: AuthReq, res: Response) => res.render("loggedin/index.pug"), true))
 app.post("/signup", allowUsers(signUp, false))
 
 app.listen(port, () => {

@@ -1,4 +1,5 @@
 import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import { getRandomInt } from "./functions";
 import { db } from "./db";
 
 export const users = sqliteTable("users", {
@@ -23,4 +24,12 @@ export const createUser = async (email: string, username: string, passwword: str
         password: passwword,
         isVerified: isverified
     }).returning().get()
+}
+
+
+export const createSession = async (userId: number) => {
+    return await db.insert(sessions).values({
+        id: getRandomInt(1111111111, 9999999999),
+        userId: userId
+    }).returning().get();
 }

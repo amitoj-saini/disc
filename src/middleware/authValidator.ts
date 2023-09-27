@@ -11,6 +11,7 @@ export interface AuthReq extends Request {
 
 export const userValidationMiddleware = (req: AuthReq, res: Response, next: NextFunction) => {
     // do some authentication
+    console.log(req.cookies)
     next();
 }
 
@@ -18,7 +19,7 @@ export const allowUsers = (callback: (req: AuthReq, res: Response, next: NextFun
     // boolean: true (allow only logged in users), false: (allow only loggedout users)
     return (req: AuthReq, res: Response, next: NextFunction) => {
         if ((users && req.user) || (!users && !req.user)) callback(req, res, next);
-        if (!redirecturl) next();
-        else res.status(301).redirect(redirecturl);
+        else if (redirecturl) res.status(301).redirect(redirecturl);
+        else next();
     }
 }

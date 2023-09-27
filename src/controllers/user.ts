@@ -1,8 +1,7 @@
 import { hashPassword, validateBody } from "../functions";
 import { AuthReq } from "../middleware/authValidator";
+import { createUser, createSession } from "../schema";
 import express, { Response } from "express";
-import { createUser } from "../schema";
-
 
 export  const signUp = async (req: AuthReq, res: Response) => {
     let isValid = validateBody(req, {
@@ -11,8 +10,8 @@ export  const signUp = async (req: AuthReq, res: Response) => {
         password: { length: 40, type: "string" }
     });
 
-    let user = createUser(req.body.email, req.body.username, await hashPassword(req.body.password), 0)
-    
-    ///console.log(user);
-    
+    let user = await createUser(req.body.email, req.body.username, await hashPassword(req.body.password), 0)
+    let session = await createSession(user.id);
+    res.cookie("session", session.id);
+    res.redirect("/");
 }

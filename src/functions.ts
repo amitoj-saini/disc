@@ -20,3 +20,9 @@ export const hashPassword = async (password: string) => {
 export const comparePasswords = async (password: string, hashedPassword:string) => {
     return await bcrypt.compare(password, hashedPassword);
 }
+
+export const getRandomInt = (min: number, max: number) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}  
