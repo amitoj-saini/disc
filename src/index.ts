@@ -1,6 +1,7 @@
 import { AuthReq, allowUsers, userValidationMiddleware } from "./middleware/authValidator";
+import { dashboard } from "./controllers/dashboard";
 import express, { Response } from "express";
-import { signUp } from "./controllers/user";
+import { signIn, signUp } from "./controllers/user";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import path from "path";
@@ -20,8 +21,9 @@ app.use(express.urlencoded({extended: true}));
 
 // loggedout routes
 app.get("/", allowUsers((req: AuthReq, res: Response) => res.render("loggedout/index.pug"), false))
-app.get("/", allowUsers((req: AuthReq, res: Response) => res.render("loggedin/index.pug"), true))
+app.get("/", allowUsers(dashboard, true))
 app.post("/signup", allowUsers(signUp, false))
+app.post("/login", allowUsers(signIn, false))
 
 app.listen(port, () => {
     console.log(`Disc Server is running at http://localhost:${port}`)

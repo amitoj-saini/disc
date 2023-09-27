@@ -15,6 +15,20 @@
       "when": 1695788217995,
       "tag": "0001_bouncy_talos",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1695834455431,
+      "tag": "0002_left_sugar_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1695835015753,
+      "tag": "0003_jazzy_deathstrike",
+      "breakpoints": true
     }
   ]
 }
