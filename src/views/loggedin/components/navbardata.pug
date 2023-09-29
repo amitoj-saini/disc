@@ -1,4 +1,11 @@
-a(href="/")
+
+a(href="/", class=selectedOption === 'home' ? 'selected' : '')
     span.icon 
         include ../../svgs/boxes.svg
     span.text Dashboard
+
+
+a(href="/", class=selectedOption === 'trending' ? 'selected' : '')
+    span.icon 
+        include ../../svgs/boxes.svg
+    span.text Trending

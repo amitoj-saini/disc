@@ -1,2 +1,10 @@
 div.top-bar.w-full.h-12.border-b.border-color.px-4.flex.items-center.secondary-color
     img.h-4(src="/public/images/logo.png")
+
+    div.ml-auto.relative(class="md:hidden")
+        button.menubtnitem(id="menubtn")
+            span.menubtnitem Menu 
+            span.menubtnitem(class="mt-px")
+                include ../../svgs/menu.svg
+        div.side-nav-bar.top-nav-menu.absolute.mt-4.border.border-color.rounded.hidden(id="topbarnav")
+            include navbardata.pug

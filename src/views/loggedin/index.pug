@@ -1,9 +1,11 @@
 extends ../template.pug
 
 block head 
+    script(src="/public/js/index.js")
     title Disc Dashboard
 
 block body 
+    - const selectedOption = "home"
     div.main.flex.flex-col
         include components/topbar.pug
         div.grow
