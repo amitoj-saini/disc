@@ -1,6 +1,10 @@
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
-    body 
+extends ../template.pug
+
+block head 
+    title Disc Dashboard
+
+block body 
+    div.main.flex.flex-col
+        include components/topbar.pug
+        div.grow
+            include components/sidebar.pug

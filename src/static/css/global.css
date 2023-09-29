@@ -1,7 +1,9 @@
 :root {
     --bg: rgb(33, 33, 33);
     --color: rgb(255, 255, 255);
-    --border: rgb(48, 48, 48);
+    --border: rgb(59, 59, 59);
+    --secondary-bg: #262626;
+    --icons: rgb(140, 140, 140);
 }
 
 body {
@@ -16,4 +18,33 @@ html, body, .main {
 
 .border-color {
     border-color: var(--border);
+}
+
+.secondary-color {
+    background-color: var(--secondary-bg);
+}
+
+.side-nav-bar a.selected {
+    background-color: var(--bg);
+}
+
+.side-nav-bar a {
+    align-items: center;
+    border-radius: 5px;
+    display: flex;
+    width: 100%;
+}
+
+.side-nav-bar a span {
+    padding: 10px 5px;
+}
+
+.side-nav-bar a span.icon svg {
+    color: var(--icons);
+    height: 16px;
+    width: 16px;
+}
+
+.side-nav-bar a span.text {
+    font-size: 12px;
 }
