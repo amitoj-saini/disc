@@ -1,12 +1,44 @@
 extends ../template.pug
 
-block head 
+block head
     script(src="/public/js/index.js")
+    script(src="/public/js/dashboard.js")
     title Disc Dashboard
 
 block body 
     - const selectedOption = "home"
     div.main.flex.flex-col
         include components/topbar.pug
-        div.grow
+        div.grow.flex
             include components/sidebar.pug
+            div.grow.p-8.flex.flex-col
+                div.flex
+                    div
+                        h1.font-medium.text-xl Your Discs
+                    div.ml-auto
+                        if user.isVerified
+                            button.orange.bigsvg(onclick="createDisc()") New Disc 
+                                include ../svgs/terminalplus.svg
+                        else
+                            button.bigsvg(class="hover:line-through cursor-default") Verify email to create disc 
+                                include ../svgs/terminalminus.svg
+                if discs.length == 0
+                    div.grow.flex.text-center.justify-center.items-center
+                        div 
+                            h1.text-gray-500.font-light No Discs Yet    
+                            h1.font-light.text-xs.text-gray-400 
+                                span(type="writing-simulator", time="125", prefix="W", text="hat are you waiting for?") W
+                                span(style="margin-left: 1px; color: var(--main); animation: blinking 0.8s steps(5, start) infinite;", width="2") _
+                else
+                    h1 some posts....
+                
+                if !user.isVerified
+                    div.notifacation
+                        h1.title 
+                            span(style="vertical-align: sub;").text-red-600 *
+                            |  Verify your email 
+                            span(style="color: var(--main); font-size: 11px;").font-normal Didn't get email? 
+                                span(class="hover:underline", style="text-decoration-color: var(--main);").cursor-pointer (Click to Resend)
+                        span.body Before you get started creating Discs, let's ensure your account is all set! Click the email we sent to you at 
+                            b.font-medium #{user.email} 
+                            | to verify. This helps keep your account secure and ready for action!

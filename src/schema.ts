@@ -3,6 +3,7 @@ import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 import { eq } from "drizzle-orm";
 import { db } from "./db";
 
+
 export const users = sqliteTable("users", {
     id: integer("id").primaryKey().notNull(),
     email: text("email").notNull().unique(),
@@ -13,6 +14,13 @@ export const users = sqliteTable("users", {
     session: integer("session").notNull()
 });
 
+export const discs = sqliteTable("discs", {
+    id: integer("id").primaryKey().notNull(),
+    name: text("name"),
+    icon: integer("icon").notNull(),
+    descrition: text("description"),
+    userId: integer("user_id").notNull().references(() => users.id),
+});
 
 export const createUser = async (email: string, username: string, password: string, isverified: number) => {
     return await db.insert(users).values({
@@ -26,6 +34,10 @@ export const createUser = async (email: string, username: string, password: stri
 
 export const getUserFromSession = async(sessionId: number) => {
     return await db.select().from(users).where(eq(users.session, sessionId));
+}
+
+export const getUsersDiscs = async(userid: number) => {
+    return await db.select().from(discs).where(eq(discs.userId, userid));
 }
 
 export const authenticateUser = async (username: string, password: string) => {

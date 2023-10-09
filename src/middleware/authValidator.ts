@@ -1,15 +1,17 @@
 import { NextFunction, Request, Response } from "express";
 import { getUserFromSession } from "../schema";
 
-export interface AuthReq extends Request {
+export interface User {
     // simpler to keep object the same just change isLoggedIn
-    user?: {
-        id: number,
-        isVerified: number,
-        username: string,
-        session: number,
-        email: string,
-    },
+    id: number,
+    isVerified: number,
+    username: string,
+    session: number,
+    email: string,
+}
+
+export interface AuthReq extends Request {
+    user?: User
 }
 
 export const userValidationMiddleware = async (req: AuthReq, res: Response, next: NextFunction) => {
