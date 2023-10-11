@@ -34,10 +34,12 @@ export const userValidationMiddleware = async (req: AuthReq, res: Response, next
     next();
 }
 
-export const allowUsers = (callback: (req: AuthReq, res: Response, next: NextFunction) => void, users: boolean, redirecturl="") => {
+export const allowUsers = (callback: (req: AuthReq, res: Response, next: NextFunction) => void, users: boolean, needsVerifacation=0, redirecturl="") => {
     // boolean: true (allow only logged in users), false: (allow only loggedout users)
+    // needs verifacation 0: false, 1: true
     return (req: AuthReq, res: Response, next: NextFunction) => {
-        if ((users && req.user) || (!users && !req.user)) callback(req, res, next);
+        
+        if ((users && req.user && needsVerifacation == req.user.isVerified) || (!users && !req.user)) callback(req, res, next);
         else if (redirecturl) res.status(301).redirect(redirecturl);
         else next();
     }

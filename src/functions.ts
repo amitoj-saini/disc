@@ -1,5 +1,15 @@
 import { AuthReq } from "./middleware/authValidator";
+import nodemailer from "nodemailer";
 import bcrypt from "bcrypt";
+import fs from "fs";
+
+const rateLimitStoreFile = "ratelimitstore.json"
+
+interface RateLimitStore {
+    data: Record<string, number>;
+    read: () => Record<string, number>;
+    write: (data: Record<string, number>) => void;
+}
 
 export const validateBody = (req: AuthReq, wantedValues: { [key: string]: {length: number, type: string}}) => {
     for (let value in wantedValues) {
@@ -25,4 +35,27 @@ export const getRandomInt = (min: number, max: number) => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-}  
+}
+
+export const sendEmail = (to: string, subject: string, html: string) => {
+    const transporter = nodemailer.createTransport({
+        service: 'outlook',
+        auth: {
+         user: process.env.MAILUSR || "",
+         pass: process.env.MAILPWD || ""
+       },
+    });
+
+    const mailOptions = {
+        from: 'Disc',
+        to: to,
+        subject: subject,
+        html: html
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        // remove once finished email part of this project
+        if (error) console.log(error);
+        else console.log(info.response);
+    });
+}

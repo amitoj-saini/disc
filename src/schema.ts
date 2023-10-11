@@ -10,6 +10,9 @@ export const users = sqliteTable("users", {
     username: text("username").notNull().unique(),
     password: text("password").notNull(),
     isVerified: integer("verified").notNull(),
+    verifacationCode: integer("verifacationCode"),
+    verified_at: integer("verified_at"),
+    created_at: integer("created_at").notNull(),
     // users are only allowed to be logged in at one place at one time
     session: integer("session").notNull()
 });
@@ -28,12 +31,17 @@ export const createUser = async (email: string, username: string, password: stri
         username: username,
         password: await hashPassword(password),
         isVerified: isverified,
+        created_at: new Date().getTime(),
         session: getRandomInt(1111111111, 9999999999)
     }).returning().get()
 }
 
 export const getUserFromSession = async(sessionId: number) => {
     return await db.select().from(users).where(eq(users.session, sessionId));
+}
+
+export const setVerifacationCode = async(userid: number) => {
+    return await db.update(users).set({verifacationCode: getRandomInt(1111111111, 9999999999)}).where(eq(users.id, userid)).returning()
 }
 
 export const getUsersDiscs = async(userid: number) => {

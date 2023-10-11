@@ -43,6 +43,20 @@
       "when": 1696716282967,
       "tag": "0005_cuddly_mandrill",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1696999863328,
+      "tag": "0006_blue_talon",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1697001142867,
+      "tag": "0007_keen_wind_dancer",
+      "breakpoints": true
     }
   ]
 }
