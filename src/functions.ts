@@ -3,12 +3,10 @@ import nodemailer from "nodemailer";
 import bcrypt from "bcrypt";
 import fs from "fs";
 
-const rateLimitStoreFile = "ratelimitstore.json"
-
-interface RateLimitStore {
-    data: Record<string, number>;
-    read: () => Record<string, number>;
-    write: (data: Record<string, number>) => void;
+export const fileLogger = (message: string, filepath="logger.txt") => {
+    try {
+        fs.appendFileSync(filepath, `\n${message}`)
+    } catch {fs.writeFileSync(filepath, message)}
 }
 
 export const validateBody = (req: AuthReq, wantedValues: { [key: string]: {length: number, type: string}}) => {
@@ -53,9 +51,9 @@ export const sendEmail = (to: string, subject: string, html: string) => {
         html: html
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
+    /*transporter.sendMail(mailOptions, (error, info) => {
         // remove once finished email part of this project
-        if (error) console.log(error);
-        else console.log(info.response);
-    });
+        if (error) fileLogger(error.toString());
+        else fileLogger(info.response);
+    });*/
 }

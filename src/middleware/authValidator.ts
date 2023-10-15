@@ -4,6 +4,7 @@ import { getUserFromSession } from "../schema";
 export interface User {
     // simpler to keep object the same just change isLoggedIn
     id: number,
+    codeLastSent: number | null,
     isVerified: number,
     username: string,
     session: number,
@@ -22,6 +23,7 @@ export const userValidationMiddleware = async (req: AuthReq, res: Response, next
             let users = await getUserFromSession(sessionId);
             if (users.length >= 1) {
                 req.user = {
+                    codeLastSent: users[0].codeLastSent,
                     isVerified: users[0].isVerified,
                     username: users[0].username,
                     session: users[0].session,

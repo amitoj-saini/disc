@@ -1,6 +1,6 @@
 import { AuthReq, allowUsers, userValidationMiddleware } from "./middleware/authValidator";
+import { resendVerifacation, codeLastSent, signIn, signUp } from "./controllers/user";
 import { dashboard } from "./controllers/dashboard";
-import { signIn, signUp } from "./controllers/user";
 import express, { Response } from "express";
 import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
@@ -29,18 +29,18 @@ let rateLimitOptions = {
 
 const signUpLimiter = rateLimit({...rateLimitOptions});
 const loginLimiter = rateLimit({
-    ...rateLimitOptions, limit: 200, message: "Too many logins"
+    ...rateLimitOptions, limit: 250, message: "Too many logins"
 });
 const emailverifyLimiter = rateLimit({
-    ...rateLimitOptions, windowMs: 3600000,
-    limit: 5, message: "Too many emails"});
+    ...rateLimitOptions, windowMs: 75000,
+    limit: 1, message: "Too many emails"});
 
 
 // rate limit routes
 
 app.use("/signup", signUpLimiter);
 app.use("/login", loginLimiter);
-app.use("/resendverifacation", emailverifyLimiter);
+app.use("/api/resendverifacation", emailverifyLimiter);
 
 // loggedout routes
 app.get("/", allowUsers((req: AuthReq, res: Response) => res.render("loggedout/index.pug"), false))
@@ -49,6 +49,9 @@ app.post("/login", allowUsers(signIn, false))
 
 // loggedin routes
 app.get("/", allowUsers(dashboard, true))
+app.get("/api/resendverifacation", allowUsers(resendVerifacation, true))
+app.get("/api/codelastsent", allowUsers(codeLastSent, true))
+
 
 app.listen(port, () => {
     console.log(`Disc Server is running at http://localhost:${port}`)

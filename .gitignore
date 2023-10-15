@@ -4,4 +4,4 @@ src/static/css/tailwind/output.css
 */.DS_Store
 db.sqlite
 .env
-ratelimitstore.json
+logger.txt
