@@ -37,7 +37,7 @@ export const getRandomInt = (min: number, max: number) => {
 
 export const sendEmail = (to: string, subject: string, html: string) => {
     const transporter = nodemailer.createTransport({
-        service: 'outlook',
+        service: 'Gmail',
         auth: {
          user: process.env.MAILUSR || "",
          pass: process.env.MAILPWD || ""
@@ -51,9 +51,9 @@ export const sendEmail = (to: string, subject: string, html: string) => {
         html: html
     };
 
-    /*transporter.sendMail(mailOptions, (error, info) => {
+    transporter.sendMail(mailOptions, (error, info) => {
         // remove once finished email part of this project
         if (error) fileLogger(error.toString());
         else fileLogger(info.response);
-    });*/
+    });
 }
