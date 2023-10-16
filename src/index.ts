@@ -1,5 +1,5 @@
 import { AuthReq, allowUsers, userValidationMiddleware } from "./middleware/authValidator";
-import { resendVerifacation, codeLastSent, signIn, signUp } from "./controllers/user";
+import { resendVerifacation, verifyUser, codeLastSent, signIn, signUp } from "./controllers/user";
 import { dashboard } from "./controllers/dashboard";
 import express, { Response } from "express";
 import rateLimit from "express-rate-limit";
@@ -48,9 +48,10 @@ app.post("/signup", allowUsers(signUp, false))
 app.post("/login", allowUsers(signIn, false))
 
 // loggedin routes
-app.get("/", allowUsers(dashboard, true))
+app.get("/", allowUsers(dashboard, true, null))
 app.get("/api/resendverifacation", allowUsers(resendVerifacation, true))
 app.get("/api/codelastsent", allowUsers(codeLastSent, true))
+app.get("/verify/:verifacationCode", allowUsers(verifyUser, true))
 
 
 app.listen(port, () => {

@@ -1,4 +1,4 @@
-import { authenticateUser, createUser, setVerifacationCode } from "../schema";
+import { authenticateUser, createUser, setVerifacationCode, setUserAsVerified } from "../schema";
 import { AuthReq, User } from "../middleware/authValidator";
 import { sendEmail, validateBody } from "../functions";
 import { Response } from "express";
@@ -29,6 +29,16 @@ export const codeLastSent = (req: AuthReq, res: Response) => {
 export const resendVerifacation = (req: AuthReq, res: Response) => {
     createVerifacationCode((req.user as User).id)
     res.json({"message": "Code has been sent", "wait": 5000})
+}
+
+export const verifyUser = async (req: AuthReq, res: Response) => {
+    let user = (req.user as User)
+    try {
+        if (parseInt(req.params.verifacationCode) == user.verifacationCode) {
+            let users = await setUserAsVerified(user.id);
+        }
+    } catch {}
+    return res.redirect("/");
 }
 
 export const signUp = async (req: AuthReq, res: Response) => {

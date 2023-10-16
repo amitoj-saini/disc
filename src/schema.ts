@@ -45,6 +45,10 @@ export const setVerifacationCode = async(userid: number) => {
     return await db.update(users).set({codeLastSent: new Date().getTime(), verifacationCode: getRandomInt(1111111111, 9999999999)}).where(eq(users.id, userid)).returning()
 }
 
+export const setUserAsVerified = async(userid: number) => {
+    return await db.update(users).set({codeLastSent: null, verifacationCode: null, isVerified: 1}).where(eq(users.id, userid)).returning()
+}
+
 export const getUsersDiscs = async(userid: number) => {
     return await db.select().from(discs).where(eq(discs.userId, userid));
 }

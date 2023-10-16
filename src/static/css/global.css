@@ -5,7 +5,9 @@
     --secondary-bg: #262626;
     --border-2: rgb(90, 90, 90);
     --icons: rgb(140, 140, 140);
+    --hover: #302f2f;
     --hover-secondary: rgba(200, 98, 20, 0.341);
+    
     --main: #fc6930;
     --secondary: rgb(208, 93, 50);
 }
@@ -69,19 +71,20 @@ button.bigsvg svg {
 }
 
 .side-nav-bar a.selected, .side-nav-bar a.selected:hover {
-    background-color: var(--bg);
+    background-color: var(--hover-secondary);
 }
 
 .side-nav-bar a:hover {
-    background-color: var(--hover-secondary);
+    background-color: var(--hover);
 }
 
 .side-nav-bar a {
     align-items: center;
-    border-radius: 5px;
+    border-radius: 2.5px;
     display: flex;
     width: 100%;
     padding: 0px 5px;
+    margin: 1px 0px;
 }
 
 .side-nav-bar a span {
