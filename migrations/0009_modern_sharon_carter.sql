@@ -1,0 +1,1 @@
+ALTER TABLE discs ADD `edited` integer;

@@ -1,6 +1,7 @@
-import { AuthReq, allowUsers, userValidationMiddleware } from "./middleware/authValidator";
 import { resendVerifacation, verifyUser, codeLastSent, signIn, signUp } from "./controllers/user";
+import { AuthReq, allowUsers, userValidationMiddleware } from "./middleware/authValidator";
 import { dashboard } from "./controllers/dashboard";
+import { createNewDisc } from "./controllers/disc";
 import express, { Response } from "express";
 import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
@@ -21,19 +22,32 @@ app.use(express.urlencoded({extended: true}));
 
 // rate limit options
 
-let rateLimitOptions = {
+let rateLimitIpOptions = {
     windowMs: 2592000000,
     limit: 3,
     message: "Too many accounts created from this IP",
 }
 
-const signUpLimiter = rateLimit({...rateLimitOptions});
+let rateLimitUserOptions = {
+    keyGenerator: (req: AuthReq) => {
+        if (req.user) return req.user.id.toString();
+        return req.ip
+    }
+}
+
+const signUpLimiter = rateLimit({...rateLimitIpOptions});
+
 const loginLimiter = rateLimit({
-    ...rateLimitOptions, limit: 250, message: "Too many logins"
+    ...rateLimitIpOptions, limit: 250, message: "Too many logins"
 });
+
 const emailverifyLimiter = rateLimit({
-    ...rateLimitOptions, windowMs: 75000,
+    ...rateLimitUserOptions, windowMs: 75000,
     limit: 1, message: "Too many emails"});
+
+const discCreatorLimiter = rateLimit({
+        ...rateLimitUserOptions, windowMs: 86400000,
+        limit: 10, message: "Too many Discs"});
 
 
 // rate limit routes
@@ -41,18 +55,23 @@ const emailverifyLimiter = rateLimit({
 app.use("/signup", signUpLimiter);
 app.use("/login", loginLimiter);
 app.use("/api/resendverifacation", emailverifyLimiter);
+app.use("/createnewdisc", discCreatorLimiter);
 
 // loggedout routes
 app.get("/", allowUsers((req: AuthReq, res: Response) => res.render("loggedout/index.pug"), false))
 app.post("/signup", allowUsers(signUp, false))
 app.post("/login", allowUsers(signIn, false))
 
-// loggedin routes
+// loggedin routes (can be verified or unverified)
 app.get("/", allowUsers(dashboard, true, null))
+
+// logged in routes (no verifacation required)
 app.get("/api/resendverifacation", allowUsers(resendVerifacation, true))
 app.get("/api/codelastsent", allowUsers(codeLastSent, true))
 app.get("/verify/:verifacationCode", allowUsers(verifyUser, true))
 
+// logged in routes (verifacation required)
+app.post("/createnewdisc", allowUsers(createNewDisc, true, 1))
 
 app.listen(port, () => {
     console.log(`Disc Server is running at http://localhost:${port}`)

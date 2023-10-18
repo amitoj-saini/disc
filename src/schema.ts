@@ -24,6 +24,7 @@ export const discs = sqliteTable("discs", {
     icon: integer("icon").notNull(),
     descrition: text("description"),
     userId: integer("user_id").notNull().references(() => users.id),
+    edited: integer("edited")
 });
 
 export const createUser = async (email: string, username: string, password: string, isverified: number) => {
@@ -64,4 +65,8 @@ export const authenticateUser = async (username: string, password: string) => {
         }
         else return false;
     }
+}
+
+export const createDisc = async (userid: number) => {
+    
 }

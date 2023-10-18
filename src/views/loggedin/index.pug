@@ -17,8 +17,9 @@ block body
                         h1.font-medium.text-xl Your Discs
                     div.ml-auto
                         if user.isVerified
-                            button.orange.bigsvg(onclick="createDisc()") New Disc 
-                                include ../svgs/terminalplus.svg
+                            form(action="/createnewdisc", method="post")
+                                button.orange.bigsvg() New Disc 
+                                    include ../svgs/terminalplus.svg
                         else
                             button.bigsvg(class="hover:line-through cursor-default") Verify email to create disc 
                                 include ../svgs/terminalminus.svg

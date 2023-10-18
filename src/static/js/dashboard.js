@@ -44,11 +44,10 @@ const getCodeLastSent = () => {
 
 window.addEventListener("DOMContentLoaded", () => {
     // before verified
-    let verifacation = document.querySelector("#resendverifacation")
-    if (verifacation) {
+    let verifacationPending = document.querySelector("#resendverifacation")
+    if (verifacationPending) {
         getCodeLastSent();
-        verifacation.addEventListener("click", sendVerifacationCode);
+        verifacationPending.addEventListener("click", sendVerifacationCode);
     }
-
     // after verified
 })
