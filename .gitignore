@@ -5,3 +5,4 @@ src/static/css/tailwind/output.css
 db.sqlite
 .env
 logger.txt
+discs

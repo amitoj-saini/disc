@@ -43,9 +43,9 @@ export const verifyUser = async (req: AuthReq, res: Response) => {
 
 export const signUp = async (req: AuthReq, res: Response) => {
     let isValid = validateBody(req, {
-        email: { length: 75, type: "string" },
-        username: { length: 40, type: "string" }, 
-        password: { length: 60, type: "string" }
+        email: { minLength: 7, maxLength: 75, type: "string" },
+        username: { minLength: 5, maxLength: 40, type: "string" }, 
+        password: { minLength: 8, maxLength: 60, type: "string" }
     });
 
     if (isValid == true) {
@@ -54,7 +54,8 @@ export const signUp = async (req: AuthReq, res: Response) => {
             res.cookie("session", user.session);
             createVerifacationCode(user.id);
             res.redirect("/");
-        } catch {
+        } catch (e) {
+            console.log(e)
             res.json({"error": "Something went wrong..."});    
         }
     } else {
@@ -64,8 +65,8 @@ export const signUp = async (req: AuthReq, res: Response) => {
 
 export const signIn = async (req: AuthReq, res: Response) => {
     let isValid = validateBody(req, {
-        username: { length: 40, type: "string" }, 
-        password: { length: 60, type: "string" }
+        username: { minLength: 5, maxLength: 40, type: "string" }, 
+        password: { minLength: 8, maxLength: 60, type: "string" }
     });
 
     if (isValid == true) {

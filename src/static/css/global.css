@@ -6,9 +6,10 @@
     --border-2: rgb(90, 90, 90);
     --icons: rgb(140, 140, 140);
     --hover: #302f2f;
-    --hover-secondary: rgba(200, 98, 20, 0.341);
-    --main: #fc6930;
-    --secondary: rgb(208, 93, 50);
+    --hover-secondary: rgba(93, 44, 167, 0.41);
+    --light-main: #a56bfc;
+    --main: #8144de;
+    --secondary: #7432d7;
 }
 
 body {
@@ -69,7 +70,7 @@ button.bigsvg svg {
     background-color: var(--secondary-bg);
 }
 
-.side-nav-bar a.selected, .side-nav-bar a.selected:hover {
+.side-nav-bar a.selected, .side-nav-bar a.selected:hover, .top-nav-menu a.selected:hover {
     background-color: var(--hover-secondary);
 }
 
@@ -114,7 +115,7 @@ button.bigsvg svg {
 }
 
 .top-nav-menu a:hover {
-    background-color: var(--secondary-bg) !important;
+    background-color: var(--secondary-bg);
 }
 
 .top-nav-menu a span {
@@ -139,7 +140,7 @@ button.bigsvg svg {
 
 .notifacation {
     background-color: var(--secondary-bg);
-    border: solid var(--main) 0.5px;
+    border: solid var(--light-main) 0.5px;
     position: absolute;
     border-radius: 5px;
     overflow: hidden;

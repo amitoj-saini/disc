@@ -9,11 +9,12 @@ export const fileLogger = (message: string, filepath="logger.txt") => {
     } catch {fs.writeFileSync(filepath, message)}
 }
 
-export const validateBody = (req: AuthReq, wantedValues: { [key: string]: {length: number, type: string}}) => {
+export const validateBody = (req: AuthReq, wantedValues: { [key: string]: {minLength: number, maxLength: number, type: string}}) => {
     for (let value in wantedValues) {
         if (value in req.body) {
             if ((typeof req.body[value]) != wantedValues[value].type) return `${value} was not a ${wantedValues[value].type}`;
-            if (req.body[value].length > wantedValues[value].length) return `${value} was longer than ${wantedValues[value].length}`;
+            if (req.body[value].length > wantedValues[value].maxLength) return `${value} was longer than ${wantedValues[value].maxLength}`;
+            if (req.body[value].length < wantedValues[value].minLength) return `${value} was shorter than ${wantedValues[value].minLength}`;
         } else return `${value} was not in the body`;
         
     }

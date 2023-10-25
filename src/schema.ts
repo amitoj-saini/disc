@@ -24,11 +24,12 @@ export const discs = sqliteTable("discs", {
     icon: integer("icon").notNull(),
     descrition: text("description"),
     userId: integer("user_id").notNull().references(() => users.id),
-    edited: integer("edited")
+    lastEdited: integer("last_edited").notNull()
 });
 
 export const createUser = async (email: string, username: string, password: string, isverified: number) => {
     return await db.insert(users).values({
+        id: getRandomInt(1111111111, 9999999999),
         email: email,
         username: username,
         password: await hashPassword(password),
@@ -68,5 +69,12 @@ export const authenticateUser = async (username: string, password: string) => {
 }
 
 export const createDisc = async (userid: number) => {
-    
+    return await db.insert(discs).values({
+        id: getRandomInt(1111111111, 9999999999),
+        name: "Untitled Disc",
+        icon: 0,
+        descrition: "My new disc",
+        userId: userid,
+        lastEdited: new Date().getTime()
+    }).returning().get();
 }
