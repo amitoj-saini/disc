@@ -43,6 +43,14 @@ export const getUserFromSession = async(sessionId: number) => {
     return await db.select().from(users).where(eq(users.session, sessionId));
 }
 
+export const getUserFromId = async (userid: number) => {
+    return await db.select().from(users).where(eq(users.id, userid));
+}
+
+export const getUsersDiscFromId = async (userid: number, discid: number) => {
+    return await db.select().from(discs).where(eq(discs.userId, userid)).where(eq(discs.id, discid));
+}
+
 export const setVerifacationCode = async(userid: number) => {
     return await db.update(users).set({codeLastSent: new Date().getTime(), verifacationCode: getRandomInt(1111111111, 9999999999)}).where(eq(users.id, userid)).returning()
 }

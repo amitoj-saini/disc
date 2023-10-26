@@ -58,3 +58,12 @@ export const sendEmail = (to: string, subject: string, html: string) => {
         else fileLogger(info.response);
     });
 }
+
+export const generateUserContent = (user: number, disc?: number) => {
+    if (!fs.existsSync("discs"))
+        fs.mkdirSync(`discs`);
+    if (!fs.existsSync(`discs/${user}`))
+        fs.mkdirSync(`discs/${user}`);
+    if (disc)
+        fs.writeFileSync(`discs/${user}/${disc}`, "{}");
+}

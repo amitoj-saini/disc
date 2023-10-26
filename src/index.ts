@@ -1,7 +1,7 @@
 import { resendVerifacation, verifyUser, codeLastSent, signIn, signUp } from "./controllers/user";
 import { AuthReq, allowUsers, userValidationMiddleware } from "./middleware/authValidator";
+import { createNewDisc, discViewer } from "./controllers/disc";
 import { dashboard } from "./controllers/dashboard";
-import { createNewDisc } from "./controllers/disc";
 import express, { Response } from "express";
 import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
@@ -72,6 +72,7 @@ app.get("/verify/:verifacationCode", allowUsers(verifyUser, true))
 
 // logged in routes (verifacation required)
 app.post("/createnewdisc", allowUsers(createNewDisc, true, 1))
+app.get("/:user/:disc", allowUsers(discViewer, true, 1))
 
 app.listen(port, () => {
     console.log(`Disc Server is running at http://localhost:${port}`)

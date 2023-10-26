@@ -1,0 +1,15 @@
+extends ../template.pug
+
+block head
+    script(src="/public/js/index.js")
+    script(src="/public/js/dashboard.js")
+    title Disc Dashboard
+
+block body 
+    - const selectedOption = "home"
+    div.main.flex.flex-col
+        include components/topbar.pug
+        div.grow.flex
+            include components/sidebar.pug
+            div.grow.p-8.flex.flex-col
+                
