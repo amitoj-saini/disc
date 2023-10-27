@@ -70,11 +70,11 @@ button.bigsvg svg {
     background-color: var(--secondary-bg);
 }
 
-.side-nav-bar a.selected, .side-nav-bar a.selected:hover, .top-nav-menu a.selected:hover {
+.side-nav-bar a.selected, .side-nav-bar a.selected:hover, .top-nav-menu a.selected:hover, .editor-sidebar a.selected, .editor-sidebar a.selected:hover {
     background-color: var(--hover-secondary);
 }
 
-.side-nav-bar a:hover {
+.side-nav-bar a:hover, .editor-sidebar a:hover {
     background-color: var(--hover);
 }
 
@@ -130,6 +130,32 @@ button.bigsvg svg {
 .top-nav-menu a span.text {
     font-weight: 300;
     font-size: 11px;
+}
+
+.editor-sidebar div.w-20 {
+    padding: 5px;
+}
+
+.editor-sidebar div.w-20 a {
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px 5px;
+    align-items: center;
+    border-radius: 3px;
+    font-weight: 100;
+    margin: 2px 0px;
+    font-size: 10px;
+    display: flex;
+    width: 100%;
+}
+
+.editor-sidebar div.w-20 a span {
+    margin: 4px 0px;
+}
+
+.editor-sidebar div.w-20 a svg {
+    height: 16px;
+    width: 16px;
 }
 
 @keyframes blinking {

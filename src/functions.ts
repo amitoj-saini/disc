@@ -65,5 +65,5 @@ export const generateUserContent = (user: number, disc?: number) => {
     if (!fs.existsSync(`discs/${user}`))
         fs.mkdirSync(`discs/${user}`);
     if (disc)
-        fs.writeFileSync(`discs/${user}/${disc}`, "{}");
+        fs.writeFileSync(`discs/${user}/${disc}.json`, "{}");
 }

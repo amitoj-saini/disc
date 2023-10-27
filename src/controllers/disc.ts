@@ -11,7 +11,7 @@ export const createNewDisc = async (req: AuthReq, res: Response) => {
     res.redirect(`/${user.id}/${disc.id}`)
 }
 
-export const discViewer = async (req: AuthReq, res: Response) => {
+export const discEditor = async (req: AuthReq, res: Response) => {
     let userid = (parseInt(req.params.user) as number);
     let discOwner = await getUserFromId(userid)
     let disc = await getUsersDiscFromId(userid, (parseInt(req.params.disc) as number))
