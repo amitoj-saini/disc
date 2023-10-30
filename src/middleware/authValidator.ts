@@ -20,7 +20,8 @@ export const userValidationMiddleware = async (req: AuthReq, res: Response, next
     // do some authentication
     if ("session" in req.cookies) {
         try {
-            let sessionId = parseInt(req.cookies["session"])
+            let sessionId = parseInt(req.cookies["session"]);
+            if (Number.isNaN(sessionId)) return;
             let users = await getUserFromSession(sessionId);
             if (users.length >= 1) {
                 req.user = {
@@ -33,7 +34,7 @@ export const userValidationMiddleware = async (req: AuthReq, res: Response, next
                     id: users[0].id,
                 }
             }
-        } catch {}
+        } catch (err) { console.log( err) }
     }
     next();
 }

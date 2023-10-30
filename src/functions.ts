@@ -67,3 +67,18 @@ export const generateUserContent = (user: number, disc?: number) => {
     if (disc)
         fs.writeFileSync(`discs/${user}/${disc}.json`, "{}");
 }
+
+export const jsonReader = (filename: string, notfoundval={}) => {
+    try {
+        let json = JSON.parse(fs.readFileSync(filename, "utf-8"));
+        return json;
+    } catch {
+        return notfoundval;
+    }
+}
+
+export const jsonWriter = (filename: string, data: any) => {
+    try {
+        fs.writeFileSync(filename, JSON.stringify(data));
+    } catch {}
+}

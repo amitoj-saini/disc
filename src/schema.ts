@@ -21,21 +21,23 @@ export const users = sqliteTable("users", {
 export const discs = sqliteTable("discs", {
     id: integer("id").primaryKey().notNull(),
     name: text("name"),
-    icon: integer("icon").notNull(),
+    icon: integer("icon").default(0),
+    iconColor: integer("iconColor").default(0),
+    runtimeStatus: integer("runtimeStatus"),
     descrition: text("description"),
     userId: integer("user_id").notNull().references(() => users.id),
-    lastEdited: integer("last_edited").notNull()
+    lastEdited: integer("last_edited")
 });
 
 export const createUser = async (email: string, username: string, password: string, isverified: number) => {
     return await db.insert(users).values({
-        id: getRandomInt(1111111111, 9999999999),
+        id: getRandomInt(11111111, 99999999),
         email: email,
         username: username,
         password: await hashPassword(password),
         isVerified: isverified,
         created_at: new Date().getTime(),
-        session: getRandomInt(1111111111, 9999999999)
+        session: getRandomInt(11111111, 99999999)
     }).returning().get()
 }
 
@@ -52,7 +54,7 @@ export const getUsersDiscFromId = async (userid: number, discid: number) => {
 }
 
 export const setVerifacationCode = async(userid: number) => {
-    return await db.update(users).set({codeLastSent: new Date().getTime(), verifacationCode: getRandomInt(1111111111, 9999999999)}).where(eq(users.id, userid)).returning()
+    return await db.update(users).set({codeLastSent: new Date().getTime(), verifacationCode: getRandomInt(11111111, 99999999)}).where(eq(users.id, userid)).returning()
 }
 
 export const setUserAsVerified = async(userid: number) => {
@@ -68,7 +70,7 @@ export const authenticateUser = async (username: string, password: string) => {
     if (user_response.length >= 1) {
         let user = user_response[0];
         if (await comparePasswords(password, user.password)) {
-            user.session = getRandomInt(1111111111, 9999999999);
+            user.session = getRandomInt(11111111, 99999999);
             await db.update(users).set({ session: user.session }).where(eq(users.id, user.id));
             return user;
         }
@@ -78,9 +80,8 @@ export const authenticateUser = async (username: string, password: string) => {
 
 export const createDisc = async (userid: number) => {
     return await db.insert(discs).values({
-        id: getRandomInt(1111111111, 9999999999),
+        id: getRandomInt(11111111, 99999999),
         name: "Untitled Disc",
-        icon: 0,
         descrition: "My new disc",
         userId: userid,
         lastEdited: new Date().getTime()

@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "concurrently \"tailwindcss -i src/static/css/tailwind/input.css -o src/static/css/tailwind/output.css\" \"npx tsc\"",
     "start": "node dist/src/index.js",
-    "dev": "concurrently \"tailwindcss -i src/static/css/tailwind/input.css -o src/static/css/tailwind/output.css --watch\" \"npx tsc --watch\" \"nodemon -q dist/src/index.js\"",
+    "dev": "concurrently \"tailwindcss -i src/static/css/tailwind/input.css -o src/static/css/tailwind/output.css --watch\" \"npx tsc --watch\" \"nodemon -q dist/src/index.js --ignore '*.ignore.json'\"",
     "generate": "drizzle-kit generate:sqlite",
     "push": "drizzle-kit push:sqlite"
   },
@@ -22,17 +22,19 @@
     "tailwindcss": "^3.3.3"
   },
   "dependencies": {
-    "@libsql/client": "^0.3.5",
     "@types/bcrypt": "^5.0.0",
+    "@types/better-sqlite3": "^7.6.6",
     "@types/cookie-parser": "^1.4.4",
-    "@types/express-rate-limit": "^6.0.0",
+    "@types/express-ws": "^3.0.3",
     "@types/nodemailer": "^6.4.11",
     "@types/pug": "^2.0.7",
     "bcrypt": "^5.1.1",
+    "better-sqlite3": "^9.0.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.28.6",
     "express": "^4.18.2",
+    "express-ws": "^5.0.2",
     "install": "^0.13.0",
     "nodemailer": "^6.9.6",
     "pug": "^3.0.2"
