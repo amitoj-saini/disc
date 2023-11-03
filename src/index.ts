@@ -1,15 +1,13 @@
+import { AuthReq, allowUsers, allowUsersWs, userValidationMiddleware } from "./middleware/authValidator";
 import { resendVerifacation, verifyUser, codeLastSent, signIn, signUp } from "./controllers/user";
-import { AuthReq, allowUsers, userValidationMiddleware } from "./middleware/authValidator";
 import { createNewDisc, discEditor } from "./controllers/disc";
-import { dashboard } from "./controllers/dashboard";
 import { rateLimiter } from "./middleware/rateLimiter";
+import { dashboard } from "./controllers/dashboard";
 import express, { Response } from "express";
 import cookieParser from "cookie-parser";
 import expressWs from "express-ws";
 import dotenv from "dotenv";
-import WebSocket from "ws";
 import path from "path";
-import http from "http";
 
 dotenv.config();
 
@@ -46,9 +44,9 @@ app.get("/verify/:verifacationCode", allowUsers(verifyUser, true));
 app.post("/createnewdisc", allowUsers(createNewDisc, true, 1));
 app.get("/:user/:disc", allowUsers(discEditor, true, 1));
 
-app.ws("/hello", (ws, req) => {
-    console.log("hello")
-})
+app.ws("/disc", allowUsersWs((req, ws) => {
+    console.log(req.user)
+}, true, 1))
 
 app.listen(port, () => {
     console.log(`Disc Server is running at http://localhost:${port}`)
