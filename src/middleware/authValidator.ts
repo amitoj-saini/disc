@@ -36,10 +36,7 @@ export const userValidationMiddleware = async (req: any, res: Response, next: Ne
             }
         } catch (err) { console.log( err) }
     }
-    
     next();
-    if (req.ws) next();
-    // for some odd reason you have to run next twice for a ws req
 }
 
 export const allowUsers = (callback: (req: AuthReq, res: any, next: any) => void, users: boolean, needsVerifacation: number | null=0, redirecturl="") => {

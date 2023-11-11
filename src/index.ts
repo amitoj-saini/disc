@@ -10,9 +10,11 @@ import dotenv from "dotenv";
 import path from "path";
 
 dotenv.config();
-
+// keep http express handler separate from websocket app for security
 const app = expressWs(express()).app;
 const port = process.env.PORT;
+
+// express http app:
 
 app.use("/public", express.static("src/static"));
 app.set("view engine", "pug");
@@ -40,13 +42,13 @@ app.get("/api/resendverifacation", allowUsers(resendVerifacation, true));
 app.get("/api/codelastsent", allowUsers(codeLastSent, true));
 app.get("/verify/:verifacationCode", allowUsers(verifyUser, true));
 
+app.ws("/disc", allowUsersWs((req, ws) => {
+    console.log(req.user)
+}, true, 1));
+
 // logged in routes (verifacation required)
 app.post("/createnewdisc", allowUsers(createNewDisc, true, 1));
 app.get("/:user/:disc", allowUsers(discEditor, true, 1));
-
-app.ws("/disc", allowUsersWs((req, ws) => {
-    console.log(req.user)
-}, true, 1))
 
 app.listen(port, () => {
     console.log(`Disc Server is running at http://localhost:${port}`)
